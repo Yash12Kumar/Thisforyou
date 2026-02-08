@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine?</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial Rounded MT Bold', 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 10;
+            border: 8px solid #ff4d6d;
+        }
+        
+        h1 {
+            color: #ff4d6d;
+            font-size: 3.2rem;
+            margin-bottom: 30px;
+            text-shadow: 3px 3px 0px rgba(255, 77, 109, 0.2);
+        }
+        
+        .message {
+            font-size: 1.5rem;
+            color: #555;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+        
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            position: relative;
+            flex-wrap: wrap;
+        }
+        
+        .valentine-btn {
+            padding: 18px 45px;
+            font-size: 1.8rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        #yesBtn {
+            background-color: #ff4d6d;
+            color: white;
+        }
+        
+        #yesBtn:hover {
+            background-color: #ff3355;
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(255, 77, 109, 0.3);
+        }
+        
+        #noBtn {
+            background-color: #4a4a4a;
+            color: white;
+            position: relative;
+        }
+        
+        #noBtn:hover {
+            background-color: #333;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .invitation {
+            background-color: #fff9fa;
+            padding: 30px;
+            border-radius: 15px;
+            border: 4px dashed #ff4d6d;
+            margin-top: 30px;
+            animation: fadeIn 1s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .invitation h2 {
+            color: #ff4d6d;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .invitation p {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .invitation .details {
+            background-color: #ffeff1;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: inline-block;
+        }
+        
+        .invitation .details p {
+            font-size: 1.6rem;
+            margin: 8px 0;
+        }
+        
+        .invitation .heart-icon {
+            color: #ff4d6d;
+            font-size: 2.5rem;
+            margin: 0 10px;
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        .heart-balloon {
+            position: absolute;
+            font-size: 2.5rem;
+            color: #ff4d6d;
+            z-index: 1;
+            animation: float 15s infinite linear;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(100px, 100px) rotate(90deg); }
+            50% { transform: translate(50px, 200px) rotate(180deg); }
+            75% { transform: translate(-50px, 100px) rotate(270deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+        }
+        
+        footer {
+            margin-top: 30px;
+            color: #777;
+            font-size: 1.2rem;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .valentine-btn {
+                padding: 15px 35px;
+                font-size: 1.5rem;
+            }
+            
+            .invitation h2 {
+                font-size: 2rem;
+            }
+            
+            .invitation p {
+                font-size: 1.5rem;
+            }
+            
+            .heart-balloon {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .buttons-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            
+            .valentine-btn {
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Heart balloons -->
+    <div id="balloons-container"></div>
+    
+    <div class="container">
+        <h1>Will You Be My Valentine?</h1>
+        
+        <div class="message">
+            <p>My heart skips a beat every time I see you. <i class="fas fa-heart" style="color:#ff4d6d;"></i></p>
+            <p>This Valentine's Day, I want to make special memories with you.</p>
+        </div>
+        
+        <div class="buttons-container">
+            <button id="yesBtn" class="valentine-btn">YES! <i class="fas fa-heart"></i></button>
+            <button id="noBtn" class="valentine-btn">No</button>
+        </div>
+        
+        <div id="invitation" class="hidden">
+            <div class="invitation">
+                <h2>I knew you'd say YES! <i class="fas fa-heart heart-icon"></i></h2>
+                <p>You've made me the happiest person in the world!</p>
+                <p>Let's celebrate our love this Valentine's Day.</p>
+                
+                <div class="details">
+                    <p><i class="far fa-calendar-alt"></i> <strong>Date:</strong> February 14, 2024</p>
+                    <p><i class="far fa-clock"></i> <strong>Time:</strong> 7:30 PM</p>
+                    <p><i class="fas fa-hotel"></i> <strong>Venue:</strong> The Grand Romance Hotel</p>
+                    <p><i class="fas fa-map-marker-alt"></i> <strong>Address:</strong> 123 Love Street, Heartville</p>
+                </div>
+                
+                <p style="margin-top: 20px;">I can't wait to see you there! <i class="fas fa-heart heart-icon"></i></p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Made with <i class="fas fa-heart" style="color:#ff4d6d;"></i> for you</p>
+        </footer>
+    </div>
+
+    <script>
+        // Create heart balloons
+        const balloonsContainer = document.getElementById('balloons-container');
+        const balloonCount = 15;
+        
+        for (let i = 0; i < balloonCount; i++) {
+            const balloon = document.createElement('div');
+            balloon.className = 'heart-balloon';
+            balloon.innerHTML = '<i class="fas fa-heart"></i>';
+            
+            // Random position and animation
+            const size = Math.random() * 2 + 1;
+            const startX = Math.random() * 100;
+            const startY = Math.random() * 100;
+            const duration = Math.random() * 20 + 15;
+            const delay = Math.random() * 5;
+            
+            balloon.style.fontSize = `${size}rem`;
+            balloon.style.left = `${startX}vw`;
+            balloon.style.top = `${startY}vh`;
+            balloon.style.animation = `float ${duration}s infinite linear ${delay}s`;
+            balloon.style.opacity = `${Math.random() * 0.5 + 0.5}`;
+            
+            balloonsContainer.appendChild(balloon);
+        }
+        
+        // Handle the "No" button movement
+        const noBtn = document.getElementById('noBtn');
+        let moveCount = 0;
+        
+        noBtn.addEventListener('mouseover', function() {
+            // Move button to random position when hovered
+            const container = document.querySelector('.buttons-container');
+            const containerRect = container.getBoundingClientRect();
+            const btnRect = noBtn.getBoundingClientRect();
+            
+            // Calculate max positions
+            const maxX = containerRect.width - btnRect.width;
+            const maxY = containerRect.height - btnRect.height;
+            
+            // Generate random position within container
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = `${randomX}px`;
+            noBtn.style.top = `${randomY}px`;
+            
+            // Add a funny message after a few tries
+            moveCount++;
+            if (moveCount === 3) {
+                noBtn.textContent = "Stop chasing me!";
+            } else if (moveCount === 6) {
+                noBtn.textContent = "Just click YES!";
+            } else if (moveCount === 9) {
+                noBtn.textContent = "OK FINE!";
+                setTimeout(() => {
+                    noBtn.textContent = "No";
+                }, 1000);
+            }
+        });
+        
+        // Handle the "Yes" button click
+        const yesBtn = document.getElementById('yesBtn');
+        const invitation = document.getElementById('invitation');
+        const buttonsContainer = document.querySelector('.buttons-container');
+        
+        yesBtn.addEventListener('click', function() {
+            // Hide the buttons
+            buttonsContainer.classList.add('hidden');
+            
+            // Show the invitation
+            invitation.classList.remove('hidden');
+            
+            // Create celebratory heart balloons
+            createCelebrationHearts();
+            
+            // Play a happy sound (optional)
+            playCelebrationSound();
+        });
+        
+        // Create celebration hearts
+        function createCelebrationHearts() {
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart-balloon';
+                    heart.innerHTML = '<i class="fas fa-heart"></i>';
+                    heart.style.color = '#ff4d6d';
+                    heart.style.fontSize = `${Math.random() * 2 + 1.5}rem`;
+                    heart.style.position = 'fixed';
+                    heart.style.left = `${Math.random() * 100}vw`;
+                    heart.style.top = '100vh';
+                    heart.style.zIndex = '100';
+                    
+                    // Celebration animation
+                    heart.style.animation = `none`;
+                    
+                    document.body.appendChild(heart);
+                    
+                    // Animate heart floating up
+                    const duration = 1 + Math.random() * 1;
+                    const targetY = -100;
+                    
+                    heart.animate([
+                        { transform: 'translateY(0) scale(1)', opacity: 1 },
+                        { transform: `translateY(${targetY}vh) scale(1.5)`, opacity: 0 }
+                    ], {
+                        duration: duration * 1000,
+                        easing: 'cubic-bezier(0.215, 0.610, 0.355, 1)'
+                    });
+                    
+                    // Remove heart after animation
+                    setTimeout(() => {
+                        heart.remove();
+                    }, duration * 1000);
+                }, i * 150);
+            }
+        }
+        
+        // Play celebration sound
+        function playCelebrationSound() {
+            // Create a simple celebratory sound using the Web Audio API
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime); // C5
+                oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.1); // E5
+                oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.2); // G5
+                
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.5);
+            } catch (e) {
+                console.log("Audio not supported or error:", e);
+            }
+        }
+    </script>
+</body>
+</html>
